@@ -1,0 +1,8 @@
+{
+  "name": "sorting",
+  "version": "1.0.0",
+  "description": "learn abstract data types and data structures through implementation and simulation",
+  "scripts": {
+    "test": "testem"
+  },
+}
