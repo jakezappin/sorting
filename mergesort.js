@@ -1,16 +1,13 @@
 
-// var split = function (wholeArray) {
-// 	debugger
-// 	if (wholeArray.length > 1) {
-// 		var middle = Math.floor(wholeArray.length/2);
-// 		var firstHalf = wholeArray.slice(0, middle);
-// 		var secondHalf = wholeArray.slice(middle+1; wholeArray.length-1);
 
-// 		return [split(wholeArray), split(wholeArray)];
-// 	}
+function split (array){
 
-// }
+	var center = Math.floor(array.length / 2);
+	var left = array.slice(0, center);
+	var right = array.slice(center);
 
+	return [left, right];
+}
 
 function mergeSort (wholeArray){
 
@@ -20,33 +17,35 @@ function mergeSort (wholeArray){
 
 	} else {
 
-		var middle = Math.floor(wholeArray.length/2);
-		var firstHalf = wholeArray.slice(0, middle);
-		var secondHalf = wholeArray.slice(middle, wholeArray.length)
-		return merge(mergeSort(firstHalf), mergeSort(secondHalf));
+		var splits = split(wholeArray);
+		var left = splits[0];
+		var right = splits[1];
+
+		return merge(mergeSort(left), mergeSort(right));
+
 	}
 
 }
 
 
-function merge (leftArray, rightArray){
+function merge (left, right){
 
-	var result = [];
-	var left = 0;
-	var right = 0;
+	var merged= [];
+	var leftIndex = 0;
+	var rightIndex = 0;
 
-	while (left < leftArray.length && right < rightArray.length){
-		if (leftArray[left] && rightArray[right]) {
-			if(leftArray[left] > rightArray[right]){
-				result.push(rightArray[right]);
-				right++;
-			} else {
-				result.push(leftArray[left]);
-				left++;
-			}
+
+	while(leftIndex < left.length || rightIndex < right.length){
+		if(left[leftIndex] < right[rightIndex] || right[rightIndex] === undefined){
+			merged.push(left[leftIndex]);
+			leftIndex++;
+		} else {
+			merged.push(right[rightIndex]);
+			rightIndex++;
 		}
+
 	}
 
-	return result.concat(leftArray[left], rightArray[right]);
-
+	return merged;
+	
 }
